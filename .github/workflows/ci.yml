@@ -19,13 +19,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r modular_dbt_portfolio/requirements.txt
       - name: Run structure enforcement
         run: |
-          python3 scripts/ci/enforce_structure.py
+          python3 modular_dbt_portfolio/scripts/ci/enforce_structure.py
       - name: Generate models (if any missing)
         run: |
-          python3 scripts/generate_models.py --config config/sources_config.yml
+          python3 modular_dbt_portfolio/scripts/generate_models.py --config config/sources_config.yml
       - name: Setup dbt profiles
         run: |
           mkdir -p ~/.dbt
@@ -40,4 +40,4 @@ jobs:
           dbt test --project-dir modular_dbt_portfolio --profiles-dir ~/.dbt --select tag:silver --exclude tag:disabled || true
       - name: Run Great Expectations checks (optional)
         run: |
-          python3 scripts/dq/run_ge.py
+          python3 modular_dbt_portfolio/scripts/dq/run_ge.py
