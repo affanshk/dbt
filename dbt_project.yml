@@ -1,4 +1,4 @@
-name: 'modular-dbt-portfolio'
+name: 'modular_dbt_portfolio'
 version: '1.0'
 profile: 'modular_dbt_portfolio'
 config-version: 2
@@ -10,7 +10,7 @@ macro-paths: ["macros"]
 analysis-paths: ["analysis"]
 
 models:
-  modular-dbt-portfolio:
+  modular_dbt_portfolio:
     +materialized: view
     bronze:
       +schema: bronze
