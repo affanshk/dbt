@@ -11,8 +11,12 @@ import os
 import re
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MODELS_DIR = os.path.join(ROOT, 'models')
+
+if not os.path.isdir(MODELS_DIR):
+    print(f'ERROR: models directory not found at {MODELS_DIR}')
+    sys.exit(1)
 
 FORBIDDEN_PATTERNS = [
     r'\bGROUP\s+BY\b',
