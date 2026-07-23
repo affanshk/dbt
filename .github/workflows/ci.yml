@@ -1,11 +1,7 @@
 name: CI
 on:
-  push:
-    branches:
-      - scaffold/modular-dbt
-  pull_request:
-    branches:
-      - scaffold/modular-dbt
+  push: {}
+  pull_request: {}
 
 jobs:
   test:
@@ -25,7 +21,7 @@ jobs:
           python3 modular_dbt_portfolio/scripts/ci/enforce_structure.py
       - name: Generate models (if any missing)
         run: |
-          python3 modular_dbt_portfolio/scripts/generate_models.py --config config/sources_config.yml
+          python3 modular_dbt_portfolio/scripts/generate_models.py --config modular_dbt_portfolio/config/sources_config.yml
       - name: Setup dbt profiles
         run: |
           mkdir -p ~/.dbt
