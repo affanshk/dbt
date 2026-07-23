@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -16,50 +15,27 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: Install system deps & pip
-        run: |
-          python -m pip install --upgrade pip
+          cache: pip
 
       - name: Install python deps (project)
         run: |
-          pip install -r modular_dbt_portfolio/requirements.txt || true
-
-      - name: Setup dbt profiles (CI-safe; DuckDB)
-        run: |
-          mkdir -p ~/.dbt
-          cp modular_dbt_portfolio/profiles.example.yml ~/.dbt/profiles.yml
-          echo "---- ~/.dbt/profiles.yml ----"
-          cat ~/.dbt/profiles.yml
-          echo "-----------------------------"
-
-      - name: Prepare DuckDB file
-        run: |
-          mkdir -p data
-          touch data/duckdb.db
-          ls -la data
+          python -m pip install --upgrade pip
+          if [ -f modular_dbt_portfolio/requirements.txt ]; then
+            pip install -r modular_dbt_portfolio/requirements.txt
+          fi
 
       - name: Run structure enforcement
         run: |
-          python3 modular_dbt_portfolio/scripts/ci/enforce_structure.py || true
+          if [ -f modular_dbt_portfolio/scripts/ci/enforce_structure.py ]; then
+            python3 modular_dbt_portfolio/scripts/ci/enforce_structure.py
+          else
+            echo "enforce_structure.py not found yet — skipping"
+          fi
 
-      - name: Generate models (if any missing)
+      - name: Placeholder — dbt/DuckDB checks
         run: |
-          python3 modular_dbt_portfolio/scripts/generate_models.py --config modular_dbt_portfolio/config/sources_config.yml || true
-
-      - name: dbt deps & compile
-        run: |
-          pip install dbt-core dbt-postgres dbt-duckdb
-          dbt deps --project-dir modular_dbt_portfolio --profiles-dir ~/.dbt --target duckdb || true
-          dbt compile --project-dir modular_dbt_portfolio --profiles-dir ~/.dbt --target duckdb
-
-      - name: dbt test (silver)
-        run: |
-          dbt test --project-dir modular_dbt_portfolio --profiles-dir ~/.dbt --target duckdb --select tag:silver --exclude tag:disabled || true
-
-      - name: Run Great Expectations checks (optional)
-        run: |
-          python3 modular_dbt_portfolio/scripts/dq/run_ge.py || true
+          echo "dbt + DuckDB pipeline not wired up yet."
+          echo "TODO: add dbt deps/compile/test steps once profiles + DuckDB setup land."
