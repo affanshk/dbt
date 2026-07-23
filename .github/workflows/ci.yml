@@ -1,4 +1,5 @@
-name: CI
+name: Setup dbt profiles 
+run: | mkdir -p ~/.dbt cp profiles.example.yml ~/.dbt/profiles.yml
 on:
   push:
     branches:
