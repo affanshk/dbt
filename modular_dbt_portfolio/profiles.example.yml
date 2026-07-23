@@ -1,0 +1,20 @@
+# Example profiles for local development / CI (DuckDB by default)
+# Copy to ~/.dbt/profiles.yml and update credentials if using Postgres
+
+modular_dbt_portfolio:
+  target: duckdb
+  outputs:
+    postgres:
+      type: postgres
+      host: localhost
+      user: your_user
+      password: your_password
+      port: 5432
+      dbname: your_db
+      schema: analytics
+      threads: 4
+    duckdb:
+      type: duckdb
+      path: data/duckdb.db
+      schema: main
+      threads: 2

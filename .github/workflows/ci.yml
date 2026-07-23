@@ -1,0 +1,41 @@
+name: CI
+on:
+  pull_request: {}
+  push:
+    branches:
+      - main
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      - name: Install python deps (project)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f modular_dbt_portfolio/requirements.txt ]; then
+            pip install -r modular_dbt_portfolio/requirements.txt
+          fi
+
+      - name: Run structure enforcement
+        run: |
+          if [ -f modular_dbt_portfolio/scripts/ci/enforce_structure.py ]; then
+            python3 modular_dbt_portfolio/scripts/ci/enforce_structure.py
+          else
+            echo "enforce_structure.py not found yet — skipping"
+          fi
+
+      - name: Placeholder — dbt/DuckDB checks
+        run: |
+          echo "dbt + DuckDB pipeline not wired up yet."
+          echo "TODO: add dbt deps/compile/test steps once profiles + DuckDB setup land."
