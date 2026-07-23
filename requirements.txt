@@ -1,5 +1,0 @@
-dbt-core==1.6.0
-dbt-postgres==1.6.0
-dbt-duckdb==1.6.0
-great_expectations==0.15.41
-PyYAML==6.0
