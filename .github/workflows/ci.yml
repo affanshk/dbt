@@ -1,5 +1,4 @@
-name: Setup dbt profiles 
-run: | mkdir -p ~/.dbt cp profiles.example.yml ~/.dbt/profiles.yml
+name: CI
 on:
   push:
     branches:
@@ -27,6 +26,9 @@ jobs:
       - name: Generate models (if any missing)
         run: |
           python3 scripts/generate_models.py --config config/sources_config.yml
+      - name: Setup dbt profiles
+        run: |
+          mkdir -p ~/.dbt cp profiles.example.yml ~/.dbt/profiles.yml
       - name: dbt deps & compile
         run: |
           pip install dbt-core dbt-postgres dbt-duckdb
