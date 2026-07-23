@@ -1,9 +1,11 @@
-# Example profiles for local development
-# Copy to ~/.dbt/profiles.yml and update credentials
-
 modular_dbt_portfolio:
-  target: dev
+  target: duckdb
   outputs:
+    duckdb:
+      type: duckdb
+      path: data/duckdb.db
+      schema: main
+      threads: 2
     postgres:
       type: postgres
       host: localhost
@@ -13,10 +15,3 @@ modular_dbt_portfolio:
       dbname: your_db
       schema: analytics
       threads: 4
-    duckdb:
-      type: duckdb
-      path: data/duckdb.db
-      schema: main
-      threads: 2
-  # choose either 'postgres' or 'duckdb' as your target
-  # target: postgres
