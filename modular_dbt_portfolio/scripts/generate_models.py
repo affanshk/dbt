@@ -8,7 +8,7 @@ import yaml
 TEMPLATE_SILVER = '''-- GENERATED: staging__{source}__{table}
 -- Cleaning-only model
 with raw as (
-  select * from {{ source('{source}', '{table}') }}
+  select * from {{{{ source('{source}', '{table}') }}}}
 )
 
 select *
@@ -17,7 +17,7 @@ where 1=1
 '''
 
 TEMPLATE_GOLD = '''-- GENERATED: gold mart for {table}
-select * from {{ ref('staging__{source}__{table}') }}
+select * from {{{{ ref('staging__{source}__{table}') }}}}
 '''
 
 
