@@ -1,6 +1,6 @@
-name: 'modular_dbt_portfolio'
+name: 'dbt_modular_warehouse'
 version: '1.0'
-profile: 'modular_dbt_portfolio'
+profile: 'dbt_modular_warehouse'
 config-version: 2
 
 model-paths: ["models"]
@@ -10,7 +10,7 @@ macro-paths: ["macros"]
 analysis-paths: ["analysis"]
 
 models:
-  modular_dbt_portfolio:
+  dbt_modular_warehouse:
     +materialized: view
     bronze:
       +schema: bronze

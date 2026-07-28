@@ -1,7 +1,7 @@
 # Example profiles for local development / CI (DuckDB by default)
 # Copy to ~/.dbt/profiles.yml and update credentials if using Postgres
 
-modular_dbt_portfolio:
+dbt_modular_warehouse:
   target: duckdb
   outputs:
     postgres:

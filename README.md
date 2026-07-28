@@ -1,4 +1,4 @@
-# modular-dbt-portfolio
+# dbt-modular-warehouse
 
 This repository is a scaffold for a modular dbt-based data warehouse project designed as a portfolio project.
 
