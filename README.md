@@ -1,6 +1,6 @@
-# dbt-modular-warehouse
+# dbt Modular Data Warehouse (bronze/silver/gold, DuckDB)
 
-This repository is a scaffold for a modular dbt-based data warehouse project designed as a portfolio project.
+A modular **dbt** data warehouse project demonstrating **bronze/silver/gold layering** and dual **DuckDB**/Postgres adapter support, with **SCD Type 2** dimension modeling on the roadmap. Built as a hands-on **analytics engineering** and **data engineering** portfolio project, with config-driven model generation and a CI-enforced boundary between cleaning logic and business logic.
 
 Key conventions
 - Layers: bronze -> silver -> gold
